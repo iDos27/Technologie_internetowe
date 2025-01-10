@@ -4,12 +4,14 @@ class App
     #bigImage
     #photoIndex
     #timer
+    #indexDisplay
 
     constructor()
     {
         this.#photoIndex = 0;
     }
 
+    // Procedura obsługi zdarzen
     init()
     {
         document
@@ -45,6 +47,13 @@ class App
 
 
         this.#bigImage = document.querySelector(".big>div>img");
+        
+        this.#indexDisplay = document.createElement('p');
+        this.#indexDisplay.style.textAlign = "center";
+        this.#indexDisplay.style.fontSize = '18px';
+        this.#indexDisplay.style.fontWeight = 'bold';
+        this.#bigImage.parentNode.insertBefore(this.#indexDisplay, this.#bigImage);
+
         this.div = document.querySelector("div.minis")
         console.dir(this.div.children)
         console.log(this.#photoIndex);
@@ -115,7 +124,6 @@ class App
         }
         else {
             console.error("Indeks jest poza zakresem!");
-            //this.blad("Indeks jest poza zakresem!");
             const p = document.querySelector("p");
             p.innerHTML = "Indeks jest za duzy!";
             p.style.color = "red";
@@ -133,8 +141,9 @@ class App
         else {
             this.#photoIndex = this.div.children.length - 1;
         }
-        console.log(this.#photoIndex);
-        this.#bigImage.src = this.div.children[this.#photoIndex].src;
+        //console.log(this.#photoIndex);
+        //this.#bigImage.src = this.div.children[this.#photoIndex].src;
+        this.setBigImage();
 
     }
 
@@ -143,15 +152,24 @@ class App
         if (this.#photoIndex === this.div.children.length) {
             this.#photoIndex = 0
         }
-        console.log(this.#photoIndex);
-        this.#bigImage.src = this.div.children[this.#photoIndex].src;
+        //console.log(this.#photoIndex);
+        //this.#bigImage.src = this.div.children[this.#photoIndex].src;
         //mozesz zamiast ciagle tych dwoch lini uzyc metody setBigImage()
+        this.setBigImage();
+        
     }
 
     setBigImage() {
 
         console.log(this.#photoIndex);
         this.#bigImage.src = this.div.children[this.#photoIndex].src;
+        this.#indexDisplay.textContent = `Aktualny index: ${this.#photoIndex}`;
+        this.changeBorderColor();
+    }
+    changeBorderColor() {
+        const colors = ['red', 'green', 'blue', 'purple', 'organge'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        this.#bigImage.style.border = `5px solid ${randomColor}`;
     }
 
 }
@@ -163,5 +181,4 @@ console.log(app.bigImage);
 
         //dodac funkcjonalnosc ze jesli poda poprawny indeks to zeby komunikat zniknal o bledzie i dodatkowo jesli uzytkownik poda cos co nie jest liczba to tez niech dostanie blad ze podal string (mozesz sprobowac zrobic to wyrazeniami regularnymi 
         //ronisz to robiac obiekt const re = regexp("\d+[\. ,]?\d*") i potem console.log(re.test(this.input.value)))
-
-// Asynchroniczny JS
+ 
