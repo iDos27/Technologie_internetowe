@@ -116,6 +116,16 @@ class App
         {
             console.log(this)
             this.#bigImage.src = event.target.src;
+
+            // Szukanie indexu zdjecia
+            this.#photoIndex = Array.from(this.miniImages).indexOf(event.target);
+            // Alternatywa
+            //this.#photoIndex = [...this.miniImages].findIndex(img => img === event.target);
+            
+            // Zmiana tekstu i borderu
+            this.#indexDisplay.textContent = `Aktualny index: ${this.#photoIndex}`;
+            this.updateMiniBorders();
+            this.changeBorderColor();
         }
     }
 
@@ -170,9 +180,10 @@ class App
         
         this.#indexDisplay.textContent = `Aktualny index: ${this.#photoIndex}`;
         this.updateMiniBorders();
+        this.changeBorderColor();
     }
     changeBorderColor() {
-        const colors = ['red', 'green', 'blue', 'purple', 'orange', 'yellow'];
+        const colors = ['blue', 'purple', 'orange', 'yellow', 'cyan'];
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
         this.#bigImage.style.border = `5px solid ${randomColor}`;
     }
