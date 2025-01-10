@@ -48,13 +48,17 @@ class App
 
         this.#bigImage = document.querySelector(".big>div>img");
         
+
         this.#indexDisplay = document.createElement('p');
         this.#indexDisplay.style.textAlign = "center";
         this.#indexDisplay.style.fontSize = '18px';
         this.#indexDisplay.style.fontWeight = 'bold';
         this.#bigImage.parentNode.insertBefore(this.#indexDisplay, this.#bigImage);
+        this.changeBorderColor();
 
         this.div = document.querySelector("div.minis")
+        this.miniImages = this.div.querySelectorAll('img');
+
         console.dir(this.div.children)
         console.log(this.#photoIndex);
         this.input = document.querySelector("input");
@@ -163,13 +167,23 @@ class App
 
         console.log(this.#photoIndex);
         this.#bigImage.src = this.div.children[this.#photoIndex].src;
+        
         this.#indexDisplay.textContent = `Aktualny index: ${this.#photoIndex}`;
-        this.changeBorderColor();
+        this.updateMiniBorders();
     }
     changeBorderColor() {
-        const colors = ['red', 'green', 'blue', 'purple', 'organge'];
+        const colors = ['red', 'green', 'blue', 'purple', 'orange', 'yellow'];
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
         this.#bigImage.style.border = `5px solid ${randomColor}`;
+    }
+    updateMiniBorders() {
+        this.miniImages.forEach((img, index) => {
+            if (index === this.#photoIndex) {
+                img.style.border = '7px solid green';
+            } else {
+                img.style.border = '7px solid red';
+            }
+        });
     }
 
 }
