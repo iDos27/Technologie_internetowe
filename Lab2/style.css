@@ -1,0 +1,46 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color:gray;
+    color:whitesmoke;
+}
+
+header {
+    text-align: center;
+    background-color:darkgreen;
+    color: black;
+    padding: 10px;
+    -webkit-text-stroke: 1px whitesmoke;
+}
+
+.note {
+    width: 30%;
+    height: 300px;
+    padding: 10px;
+    border: 3px solid darkgreen;
+    position: relative;
+    float: left;
+    margin: 0 auto;
+}
+
+.note-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.note-text {
+    text-align: center;
+    font-size: 18px;
+}
+.kolumny{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+.note:hover{
+    border: 3px solid rgb(168, 9, 9);
+    background-color: rgb(56, 56, 56);
+    color: white;
+    cursor: pointer;
+}

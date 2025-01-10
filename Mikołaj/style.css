@@ -1,0 +1,35 @@
+body>div{
+    display: flex;
+}
+body>div>div{
+    width: 50%;
+}
+.big{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.big img{
+    max-width: 50%;
+}
+
+.minis{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.minis img {
+    max-width: 210px;
+    border-radius: 10px;
+    margin: 5px;
+    border: 3px solid rebeccapurple;
+}
+img {
+    width: 200px;
+    height: 200px;
+}
+.minis img:hover{
+    width: 210px;
+    height: 210px;
+}
