@@ -3,6 +3,8 @@ class App
     //Zmiana wartosci na prywatna
     #bigImage
     #photoIndex
+    #timer
+
     constructor()
     {
         this.#photoIndex = 0;
@@ -27,7 +29,20 @@ class App
 
         document
             .querySelector("#setPhoto")
-            .addEventListener("click", ()=> this.onSetPhoto() )
+            .addEventListener("click", ()=> this.onSetPhoto());
+
+        document
+            .querySelector("#slideshow-start")
+            .addEventListener("click", () => this.onSlideshow());
+
+        document
+            .querySelector("#slideshow-stop")
+            .addEventListener("click", () => this.onStopSlideshow());
+        document
+            .querySelector("#slideshow-reset")
+            .addEventListener("click", () => this.onResetSlideshow());
+
+
 
         this.#bigImage = document.querySelector(".big>div>img");
         this.div = document.querySelector("div.minis")
@@ -35,6 +50,35 @@ class App
         console.log(this.#photoIndex);
         this.input = document.querySelector("input");
         this.setBigImage();
+    }
+
+    // Konczymy pokaz
+    onResetSlideshow() {
+        this.onStopSlideshow();
+        this.photoIndex = 0;
+    }
+
+    // Stopujemy pokaz
+    onStopSlideshow() {
+        if (this.#timer) {
+            clearInterval(this.#timer);
+            this.#timer = undefined;
+        }
+    }
+    //Rozpoczynamy pokaz slajdow - wniosek: chujowe bo mozemy nakladac zegary na siebie
+    /*onSlideshow() {
+        this.#timer = setInterval(() => {
+            this.onNextPhotoShow();
+        }, 1000);
+    }
+    */
+    // Pokaz v2
+    onSlideshow() {
+        if (this.#timer === undefined) {
+            this.#timer = setInterval(() => {
+                this.onNextPhotoShow();
+            }, 1000);
+        }
     }
 
     onSetPhoto() {
