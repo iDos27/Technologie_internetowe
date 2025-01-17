@@ -53,7 +53,9 @@ class App
         this.#indexDisplay.style.textAlign = "center";
         this.#indexDisplay.style.fontSize = '18px';
         this.#indexDisplay.style.fontWeight = 'bold';
+        this.#indexDisplay.style.color = 'black';
         this.#bigImage.parentNode.insertBefore(this.#indexDisplay, this.#bigImage);
+        
         this.changeBorderColor();
 
         this.div = document.querySelector("div.minis")
@@ -95,8 +97,8 @@ class App
     }
 
     onSetPhoto() {
-        const index = parseInt(this.input.value)
-        if (isNaN(index)) {
+        const index = parseInt(this.input.value);
+        if (isNaN(index)){
             const p = document.querySelector("p");
             p.innerHTML = "Indeks jest za duzy!";
             p.style.color = "red";
@@ -106,10 +108,19 @@ class App
         }
     }
 
+    // Dodawanie zdjęcia
     onAddPhotoClick()
     {
-        div.innerHTML += "<img src='./img/mikolaj2.jpg'"
+        const newImageSrc = './img/mikolaj2.jpg';
+        const newImage = document.createElement('img');
+        newImage.src = newImageSrc;
+        newImage.onload = () => { this.div.appendChild(newImage); };
+
+
+        //div.innerHTML += "<img src='./img/mikolaj2.jpg'";
     }
+
+    // Zmiana obrazu glownego, wypisanie indexu
     onMiniClick(event)
     {
         if (event.target.nodeName === "IMG")
