@@ -7,7 +7,25 @@
     <link rel="stylesheet" href="style.css" class="css">
 </head>
 <body>
-    <a style="border: 1px solid green;">Dodaj zdjęcie</a>
+    <div>
+        <a style="border: 1px solid green;">Dodaj zdjęcie</a>
+        <button id="slideshow-start">Pokaz slajdow</button>
+        <button id="slideshow-stop">Zatrzymaj pokaz</button>
+        <button id="slideshow-reset">Koncz pokaz</button>
+        <button id="edit">Edytuj</button>
+    </div>
+    <div>
+        <form>
+            <div>
+                <label for="file">Wybierz plik</label>
+                <input type="file" id="file">
+            </div>
+            <div>
+                <button id="addphoto">Dodaj</button>
+            </div>
+        </form>
+    </div>
+
     <div>
         <div class="big">
             <div>
@@ -16,9 +34,6 @@
             <div>
                 <button id="prev">Poprzednie</button>
                 <button id="next">Nastepne</button>
-                <button id="slideshow-start">Pokaz slajdow</button>
-                <button id="slideshow-stop">Zatrzymaj pokaz</button>
-                <button id="slideshow-reset">Koncz pokaz</button>
             </div>
             <div>
                 <input />

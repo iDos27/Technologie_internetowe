@@ -9,9 +9,7 @@ body>div>div{
     align-items: center;
     justify-content: center;
 }
-.big img{
-    max-width: 50%;
-}
+
 
 .minis{
     display: flex;

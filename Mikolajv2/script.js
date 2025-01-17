@@ -1,3 +1,7 @@
+// #Przyklad js w kolos - nacisnij przycisk - wstaw tekst //
+// Aplikacja ktora zlicza ilosc klikniec //
+
+
 class App
 {
     //Zmiana wartosci na prywatna
@@ -44,10 +48,15 @@ class App
             .querySelector("#slideshow-reset")
             .addEventListener("click", () => this.onResetSlideshow());
 
-
-
-        this.#bigImage = document.querySelector(".big>div>img");
+        document
+            .querySelector("form")
+            .addEventListener("submit", (event) => this.onSubmit(event));
+        document
+            .querySelector("#edit")
+            .addEventListener("click", () => this.onEditImage());
         
+        
+        this.#bigImage = document.querySelector(".big>div>img");
 
         this.#indexDisplay = document.createElement('p');
         this.#indexDisplay.style.textAlign = "center";
@@ -67,6 +76,43 @@ class App
         this.setBigImage();
     }
 
+
+    // Dodawanie zdjecia wybranego przez formularz. Wyswietlenie go w Big i Minis
+    onSubmit(event) {
+        event.preventDefault();
+        const fileControl = event.target.querySelector("#file");
+        const fileReader = new FileReader(); // Dzieki temu możemy wczytywać pliki w JS
+        fileReader.addEventListener("load", (event) => {
+            this.#bigImage.src = event.target.result;
+            const newImage = document.createElement('img');
+
+            newImage.src = event.target.result;
+            newImage.onload = () => { this.div.appendChild(newImage); };
+
+        });
+        fileReader.readAsDataURL(fileControl.files[0]);
+    }
+    // Edycja zdjecia na czarno-biale #nie na kolosie#
+    onEditImage() {
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        canvas.width = this.#bigImage.width;
+        canvas.height = this.#bigImage.height;
+        context.drawImage(this.#bigImage, 0, 0);
+        const data = context.getImageData(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < data.data.length; i += 4) {
+            const newValue = data.data[i] + data.data[i + 1] + data.data[i + 2] / 3;
+            data.data[i] = newValue;
+            data.data[i + 1] = newValue;
+            data.data[i + 2] = newValue;
+        }
+        context.putImageData(data, 0, 0);
+        this.#bigImage.src = canvas.toDataURL();
+    }
+
+
+
     // Konczymy pokaz
     onResetSlideshow() {
         this.onStopSlideshow();
@@ -80,13 +126,6 @@ class App
             this.#timer = undefined;
         }
     }
-    //Rozpoczynamy pokaz slajdow - wniosek: chujowe bo mozemy nakladac zegary na siebie
-    /*onSlideshow() {
-        this.#timer = setInterval(() => {
-            this.onNextPhotoShow();
-        }, 1000);
-    }
-    */
     // Pokaz v2
     onSlideshow() {
         if (this.#timer === undefined) {
@@ -144,7 +183,7 @@ class App
 
     set photoIndex(value) {
         if (0 <= value && value < this.div.children.length) {
-            this.#photoIndex = value
+            this.#photoIndex = value;
             this.setBigImage();
         }
         else {
